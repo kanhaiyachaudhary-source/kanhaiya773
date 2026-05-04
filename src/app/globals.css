@@ -72,9 +72,9 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
    Newspaper / academic poster vibe — replacing old "white HTML"
    ═══════════════════════════════════════════════════════════════════════════ */
 [data-theme="classic"] {
-  --bg: #f4ede0; --bg-2: #ebe1cc; --bg-card: #fefaee;
+  --bg: #d9c9a6; --bg-2: #c9b894; --bg-card: #e2d3b3;
   --border: #2a1a0a; --border-hot: #8b1a1a;
-  --text: #1a0e05; --text-2: #4a3826; --text-3: #7a5e44;
+  --text: #1a0e05; --text-2: #4a3826; --text-3: #6b5436;
   --accent: #8b1a1a; --accent-2: #2a1a0a; --accent-3: #4a3826; --accent-4: #8b1a1a;
   --glow: none; --glow-hot: none;
   --font-display: 'Playfair Display', 'Georgia', serif; --font-body: 'Georgia', serif; --font-mono: 'Courier New', monospace;
@@ -83,8 +83,8 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 [data-theme="classic"] body {
   font-family: var(--font-body); background: var(--bg); color: var(--text); font-size: 16px;
   background-image:
-    repeating-linear-gradient(0deg, rgba(42,26,10,0.02) 0, rgba(42,26,10,0.02) 1px, transparent 1px, transparent 4px),
-    repeating-linear-gradient(90deg, rgba(42,26,10,0.02) 0, rgba(42,26,10,0.02) 1px, transparent 1px, transparent 4px);
+    repeating-linear-gradient(0deg, rgba(42,26,10,0.025) 0, rgba(42,26,10,0.025) 1px, transparent 1px, transparent 4px),
+    repeating-linear-gradient(90deg, rgba(42,26,10,0.025) 0, rgba(42,26,10,0.025) 1px, transparent 1px, transparent 4px);
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
@@ -1366,4 +1366,151 @@ section { position: relative; z-index: 2; }
 /* Theme switcher: clean strip */
 [data-theme="classic"] .theme-switcher {
   border: 1px solid var(--border);
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   CLASSIC: kill the 3D cube animation — render as flat text columns.
+   The cube rotation is set via inline style, so we need !important.
+   ─────────────────────────────────────────────────────────────── */
+[data-theme="classic"] .cube-showcase {
+  display: block;
+}
+[data-theme="classic"] .cube-pair {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: start;
+}
+@media (max-width: 768px) {
+  [data-theme="classic"] .cube-pair { grid-template-columns: 1fr; gap: 24px; }
+}
+
+[data-theme="classic"] .cube-block {
+  display: block;
+  text-align: left;
+}
+
+[data-theme="classic"] .cube-block-label {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 13px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--accent);
+  border: none;
+  background: transparent;
+  padding: 0;
+  margin-bottom: 16px;
+  border-bottom: 2px solid var(--border);
+  padding-bottom: 4px;
+}
+
+/* Flatten the cube stage into a column */
+[data-theme="classic"] .cube-stage {
+  width: 100% !important;
+  height: auto !important;
+  perspective: none !important;
+  position: static !important;
+}
+[data-theme="classic"] .cube {
+  position: static !important;
+  width: 100% !important;
+  height: auto !important;
+  transform: none !important;
+  transform-style: flat !important;
+  cursor: default !important;
+  display: block !important;
+}
+
+/* Each cube face becomes a stacked text entry */
+[data-theme="classic"] .cube-face,
+[data-theme="classic"] .cube-face-front,
+[data-theme="classic"] .cube-face-back,
+[data-theme="classic"] .cube-face-left,
+[data-theme="classic"] .cube-face-right,
+[data-theme="classic"] .cube-face-top,
+[data-theme="classic"] .cube-face-bottom {
+  position: static !important;
+  inset: auto !important;
+  transform: none !important;
+  display: block !important;
+  width: 100% !important;
+  height: auto !important;
+  padding: 14px 0 !important;
+  margin: 0 !important;
+  background: transparent !important;
+  backdrop-filter: none !important;
+  border: none !important;
+  border-bottom: 1px dotted var(--border) !important;
+  box-shadow: none !important;
+}
+[data-theme="classic"] .cube-face:last-child {
+  border-bottom: none !important;
+}
+
+[data-theme="classic"] .cube-face-content {
+  display: block;
+  text-align: left;
+}
+
+[data-theme="classic"] .cube-face-topline {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 12px;
+  letter-spacing: 1px;
+  color: var(--accent);
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+[data-theme="classic"] .cube-face-title {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 22px;
+  font-variant: small-caps;
+  letter-spacing: 0.5px;
+  color: var(--text);
+  line-height: 1.2;
+  margin-bottom: 6px;
+}
+
+[data-theme="classic"] .cube-face-body {
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--text-2);
+  margin-bottom: 6px;
+}
+
+[data-theme="classic"] .cube-face-tag {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 12px;
+  letter-spacing: 1px;
+  color: var(--text-3);
+  background: transparent;
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+[data-theme="classic"] .cube-face-link {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 14px;
+  color: var(--accent);
+  background: transparent;
+  border: none;
+  padding: 0;
+  margin-left: 12px;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* Hide the "drag any cube to rotate" hint — irrelevant when flat */
+[data-theme="classic"] .cube-hint {
+  display: none !important;
 }
