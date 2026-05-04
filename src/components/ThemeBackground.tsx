@@ -70,10 +70,10 @@ function neonAnim(ctx: CanvasRenderingContext2D, canvas: HTMLCanvasElement): () 
   const stars = Array.from({ length: 90 }, () => ({
     x: Math.random() * canvas.width,
     y: Math.random() * canvas.height,
-    vx: (Math.random() - 0.5) * 0.8,
-    vy: (Math.random() - 0.5) * 0.8,
-    size: Math.random() * 1.4 + 0.4,
-    baseAlpha: Math.random() * 0.6 + 0.3,
+    vx: (Math.random() - 0.5) * 1.5,
+    vy: (Math.random() - 0.5) * 1.5,
+    size: Math.random() * 1.6 + 0.6,
+    baseAlpha: Math.random() * 0.4 + 0.6,
     twinkleSpeed: Math.random() * 0.03 + 0.008,
     twinklePhase: Math.random() * Math.PI * 2,
   }));
@@ -85,9 +85,9 @@ function neonAnim(ctx: CanvasRenderingContext2D, canvas: HTMLCanvasElement): () 
     // Fully clear each frame — stars move without leaving trails
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    // Subtle cyan grid
-    ctx.strokeStyle = "rgba(0, 255, 255, 0.06)";
-    ctx.lineWidth = 1;
+    // Subtle cyan grid — slightly bolder
+    ctx.strokeStyle = "rgba(0, 255, 255, 0.13)";
+    ctx.lineWidth = 1.4;
     ctx.beginPath();
     for (let x = 0; x <= canvas.width; x += GRID_SIZE) {
       ctx.moveTo(x, 0);
@@ -99,11 +99,11 @@ function neonAnim(ctx: CanvasRenderingContext2D, canvas: HTMLCanvasElement): () 
     }
     ctx.stroke();
 
-    // Brighter dots at grid intersections (subtle)
-    ctx.fillStyle = "rgba(0, 255, 255, 0.12)";
+    // Brighter dots at grid intersections
+    ctx.fillStyle = "rgba(0, 255, 255, 0.25)";
     for (let x = 0; x <= canvas.width; x += GRID_SIZE) {
       for (let y = 0; y <= canvas.height; y += GRID_SIZE) {
-        ctx.fillRect(x - 0.5, y - 0.5, 1.5, 1.5);
+        ctx.fillRect(x - 1, y - 1, 2, 2);
       }
     }
 
@@ -118,7 +118,7 @@ function neonAnim(ctx: CanvasRenderingContext2D, canvas: HTMLCanvasElement): () 
       if (s.y > canvas.height + 5) s.y = -5;
 
       const alpha = s.baseAlpha * (0.6 + 0.4 * Math.sin(t * s.twinkleSpeed + s.twinklePhase));
-      ctx.fillStyle = `rgba(200, 240, 255, ${alpha})`;
+      ctx.fillStyle = `rgba(220, 250, 255, ${alpha})`;
       ctx.beginPath();
       ctx.arc(s.x, s.y, s.size, 0, Math.PI * 2);
       ctx.fill();
