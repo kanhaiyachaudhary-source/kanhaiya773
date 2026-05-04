@@ -76,7 +76,7 @@ export default function Home() {
             </div>
             <div className="hero-card-badge badge-2">
               <div className="label">Certified</div>
-              <div className="value">AWS AI Practitioner</div>
+              <div className="value">AWS - GenAI Professional Developer</div>
             </div>
           </div>
         </div>
