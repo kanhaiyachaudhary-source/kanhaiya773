@@ -225,7 +225,7 @@ export default function ParticleUniverse() {
       elegant: [0xd4af6e, 0xf5f1e8],
       classic: [0x8b1a1a, 0x2a1a0a],
       glass:   [0xb8d4ff, 0xffd4f0],
-      game:    [0x00ff80, 0xff0080],
+      game:    [0x00ff66, 0xff00ff],
     };
     const applyTheme = () => {
       const t = document.documentElement.getAttribute("data-theme") || "neon";
