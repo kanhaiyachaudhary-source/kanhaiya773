@@ -62,27 +62,69 @@ export default function ThemeBackground() {
   return <canvas ref={canvasRef} className="theme-bg-canvas" />;
 }
 
-// ─── NEON: Matrix rain + circuit lines ────────────────────────
+// ─── NEON: subtle grid + flowing stars ────────────────────────
 function neonAnim(ctx: CanvasRenderingContext2D, canvas: HTMLCanvasElement): () => void {
-  const chars = "01アイウエオカキクケコサシスセソタチツテト";
-  const fontSize = 14;
-  const cols = Math.floor(canvas.width / fontSize);
-  const drops: number[] = Array(cols).fill(0).map(() => Math.random() * canvas.height);
+  const GRID_SIZE = 60;
+
+  // Stars that flow slowly across the screen in varied directions
+  const stars = Array.from({ length: 90 }, () => ({
+    x: Math.random() * canvas.width,
+    y: Math.random() * canvas.height,
+    vx: (Math.random() - 0.5) * 0.8,
+    vy: (Math.random() - 0.5) * 0.8,
+    size: Math.random() * 1.4 + 0.4,
+    baseAlpha: Math.random() * 0.6 + 0.3,
+    twinkleSpeed: Math.random() * 0.03 + 0.008,
+    twinklePhase: Math.random() * Math.PI * 2,
+  }));
+
+  let t = 0;
   let raf: number;
 
   const tick = () => {
-    ctx.fillStyle = "rgba(5, 5, 16, 0.06)";
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-    ctx.font = `${fontSize}px JetBrains Mono, monospace`;
-    for (let i = 0; i < drops.length; i++) {
-      const text = chars[Math.floor(Math.random() * chars.length)];
-      const y = drops[i] * fontSize;
-      const fade = Math.random();
-      ctx.fillStyle = fade > 0.97 ? "#ff00c8" : fade > 0.92 ? "#fff" : "rgba(0, 255, 255, 0.5)";
-      ctx.fillText(text, i * fontSize, y);
-      if (y > canvas.height && Math.random() > 0.975) drops[i] = 0;
-      drops[i]++;
+    // Fully clear each frame — stars move without leaving trails
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // Subtle cyan grid
+    ctx.strokeStyle = "rgba(0, 255, 255, 0.06)";
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    for (let x = 0; x <= canvas.width; x += GRID_SIZE) {
+      ctx.moveTo(x, 0);
+      ctx.lineTo(x, canvas.height);
     }
+    for (let y = 0; y <= canvas.height; y += GRID_SIZE) {
+      ctx.moveTo(0, y);
+      ctx.lineTo(canvas.width, y);
+    }
+    ctx.stroke();
+
+    // Brighter dots at grid intersections (subtle)
+    ctx.fillStyle = "rgba(0, 255, 255, 0.12)";
+    for (let x = 0; x <= canvas.width; x += GRID_SIZE) {
+      for (let y = 0; y <= canvas.height; y += GRID_SIZE) {
+        ctx.fillRect(x - 0.5, y - 0.5, 1.5, 1.5);
+      }
+    }
+
+    // Flowing stars
+    stars.forEach((s) => {
+      s.x += s.vx;
+      s.y += s.vy;
+      // Wrap around edges
+      if (s.x < -5) s.x = canvas.width + 5;
+      if (s.x > canvas.width + 5) s.x = -5;
+      if (s.y < -5) s.y = canvas.height + 5;
+      if (s.y > canvas.height + 5) s.y = -5;
+
+      const alpha = s.baseAlpha * (0.6 + 0.4 * Math.sin(t * s.twinkleSpeed + s.twinklePhase));
+      ctx.fillStyle = `rgba(200, 240, 255, ${alpha})`;
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, s.size, 0, Math.PI * 2);
+      ctx.fill();
+    });
+
+    t++;
     raf = requestAnimationFrame(tick);
   };
   tick();
