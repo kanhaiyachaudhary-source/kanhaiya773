@@ -367,7 +367,7 @@ section { position: relative; z-index: 2; }
   border: 1px solid var(--border);
   box-shadow: var(--glow);
 }
-[data-theme="neon"] .hero-photo { box-shadow: 0 0 40px rgba(0, 255, 255, 0.3), 0 0 80px rgba(255, 0, 200, 0.2); border: 2px solid var(--accent); filter: saturate(1.2) contrast(1.05); }
+[data-theme="neon"] .hero-photo { aspect-ratio: 1; max-width: 340px; background-position: center 35%; box-shadow: 0 0 40px rgba(0, 255, 255, 0.3), 0 0 80px rgba(255, 0, 200, 0.2); border: 2px solid var(--accent); filter: saturate(1.2) contrast(1.05); }
 [data-theme="neon"] .hero-photo::after { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(0,255,255,0.1), transparent 50%, rgba(255,0,200,0.15)); mix-blend-mode: screen; pointer-events: none; }
 [data-theme="elegant"] .hero-photo { aspect-ratio: 0.78; max-width: 380px; border-radius: 2px; filter: sepia(0.15) contrast(1.05); border: 1px solid var(--accent); box-shadow: 16px 16px 0 rgba(212, 175, 110, 0.15); }
 [data-theme="classic"] .hero-photo { aspect-ratio: 1; max-width: 280px; border-radius: 0; filter: grayscale(1) contrast(1.1); border: 6px double var(--border); }
@@ -1514,3 +1514,87 @@ section { position: relative; z-index: 2; }
 [data-theme="classic"] .cube-hint {
   display: none !important;
 }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   GAME THEME — final font-size pass: bump everything up another notch
+   Press Start 2P + VT323 read smaller than equivalent regular fonts,
+   so even after the previous bump some labels still felt cramped.
+   ═══════════════════════════════════════════════════════════════════════════ */
+[data-theme="game"] body { font-size: 24px; }
+
+[data-theme="game"] .nav-logo { font-size: 22px; }
+[data-theme="game"] .nav-links { font-size: 14px; gap: 22px; }
+
+[data-theme="game"] .section-label { font-size: 13px; }
+[data-theme="game"] .section-title { font-size: clamp(30px, 5vw, 50px); }
+[data-theme="game"] .section-subtitle { font-size: 18px; }
+[data-theme="game"] section[data-num]::before { font-size: 14px; padding: 7px 14px; }
+
+[data-theme="game"] .hero-meta { font-size: 14px; }
+[data-theme="game"] .hero h1 { font-size: clamp(38px, 6.5vw, 64px); }
+[data-theme="game"] .hero-typed { font-size: 18px; padding: 10px 16px; }
+[data-theme="game"] .hero-bio { font-size: 18px; }
+[data-theme="game"] .btn { font-size: 14px; padding: 16px 26px; }
+
+[data-theme="game"] .stat-num { font-size: clamp(20px, 3vw, 30px); }
+[data-theme="game"] .stat-label { font-size: 13px; }
+
+[data-theme="game"] .cube-block-label { font-size: 13px; padding: 6px 14px; }
+[data-theme="game"] .cube-face-title { font-size: 15px; }
+[data-theme="game"] .cube-face-body { font-size: 15px; }
+[data-theme="game"] .cube-face-tag { font-size: 12px; }
+[data-theme="game"] .cube-face-link { font-size: 13px; padding: 6px 14px; }
+[data-theme="game"] .cube-hint { font-size: 14px; }
+
+[data-theme="game"] .about-text p { font-size: 18px; line-height: 1.7; }
+[data-theme="game"] .about-card-title { font-size: 13px; }
+[data-theme="game"] .about-card-value { font-size: 16px; }
+
+[data-theme="game"] .timeline-meta { font-size: 13px; }
+[data-theme="game"] .timeline-role { font-size: 18px; }
+[data-theme="game"] .timeline-company { font-size: 15px; }
+[data-theme="game"] .timeline-bullets li { font-size: 16px; }
+
+[data-theme="game"] .project-num { font-size: 14px; }
+[data-theme="game"] .project-title { font-size: 20px; }
+[data-theme="game"] .project-tagline { font-size: 15px; }
+[data-theme="game"] .project-desc { font-size: 16px; line-height: 1.7; }
+[data-theme="game"] .project-stack span { font-size: 14px; padding: 6px 12px; }
+[data-theme="game"] .project-features-label { font-size: 13px; }
+[data-theme="game"] .project-features-text { font-size: 15px; line-height: 1.6; }
+[data-theme="game"] .project-link { font-size: 13px; padding: 8px 16px; }
+
+[data-theme="game"] .skill-cat-title { font-size: 14px; }
+[data-theme="game"] .skill-tag { font-size: 14px; padding: 6px 12px; }
+
+[data-theme="game"] .cert-icon { font-size: 16px; }
+[data-theme="game"] .cert-name { font-size: 15px; }
+[data-theme="game"] .cert-issuer { font-size: 13px; }
+[data-theme="game"] .cert-btn { font-size: 13px; padding: 6px 14px; }
+
+[data-theme="game"] .edu-degree { font-size: 16px; }
+[data-theme="game"] .edu-school { font-size: 14px; }
+[data-theme="game"] .edu-period { font-size: 13px; }
+[data-theme="game"] .edu-grade { font-size: 13px; padding: 6px 12px; }
+
+[data-theme="game"] .interest-name { font-size: 14px; }
+[data-theme="game"] .interest-desc { font-size: 14px; line-height: 1.5; }
+
+[data-theme="game"] .contact-icon { font-size: 20px; }
+[data-theme="game"] .contact-label { font-size: 13px; }
+[data-theme="game"] .contact-value { font-size: 15px; }
+[data-theme="game"] .contact-form h3 { font-size: 19px; }
+[data-theme="game"] .contact-form p.subtitle { font-size: 15px; }
+[data-theme="game"] .form-field label { font-size: 13px; }
+[data-theme="game"] .form-input,
+[data-theme="game"] .form-textarea { font-size: 15px; padding: 12px 14px; }
+[data-theme="game"] .form-submit { font-size: 15px; padding: 14px; }
+[data-theme="game"] .form-status { font-size: 13px; }
+
+[data-theme="game"] .footer { font-size: 13px; }
+
+[data-theme="game"] .chat-title { font-size: 14px; }
+[data-theme="game"] .chat-status { font-size: 12px; }
+[data-theme="game"] .chat-msg { font-size: 14px; }
+[data-theme="game"] .chat-chip { font-size: 13px; }
+[data-theme="game"] .chat-input { font-size: 14px; }
