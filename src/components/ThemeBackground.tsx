@@ -205,50 +205,50 @@ function glassAnim(ctx: CanvasRenderingContext2D, canvas: HTMLCanvasElement): ()
   return () => cancelAnimationFrame(raf);
 }
 
-// ─── GAME: 8-bit pixel particles (retro arcade) ────────────────────────
+// ─── GAME: Bright 8-bit perspective grid + colored pixel rain ────────────────────────
 function gameAnim(ctx: CanvasRenderingContext2D, canvas: HTMLCanvasElement): () => void {
-  const stars = Array.from({ length: 80 }, () => ({
+  const stars = Array.from({ length: 100 }, () => ({
     x: Math.random() * canvas.width,
     y: Math.random() * canvas.height,
-    speed: Math.random() * 2 + 0.5,
-    size: Math.floor(Math.random() * 3) + 1,
-    color: ["#ff0080", "#00ff80", "#80ff00", "#ffff00", "#00ffff", "#ff8000"][Math.floor(Math.random() * 6)],
+    speed: Math.random() * 2.5 + 0.6,
+    size: Math.floor(Math.random() * 3) + 2,
+    color: ["#ff00ff", "#00ff66", "#ffeb00", "#00ffff", "#ff6600", "#ff0066"][Math.floor(Math.random() * 6)],
   }));
-  // Animated grid
   let gridOffset = 0;
   let raf: number;
 
   const tick = () => {
-    ctx.fillStyle = "rgba(8, 4, 24, 0.2)";
+    // Lighter trail so colors stay vivid
+    ctx.fillStyle = "rgba(26, 0, 64, 0.25)";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    // Perspective grid
-    gridOffset = (gridOffset + 0.5) % 40;
-    ctx.strokeStyle = "rgba(255, 0, 200, 0.15)";
-    ctx.lineWidth = 1;
-    const horizonY = canvas.height * 0.6;
-    // Horizontal lines (perspective)
-    for (let i = 0; i < 12; i++) {
-      const progress = (i + gridOffset / 40) / 12;
+    // Bright magenta perspective grid
+    gridOffset = (gridOffset + 0.6) % 50;
+    ctx.strokeStyle = "rgba(255, 0, 255, 0.45)";
+    ctx.lineWidth = 1.5;
+    const horizonY = canvas.height * 0.55;
+    for (let i = 0; i < 14; i++) {
+      const progress = (i + gridOffset / 50) / 14;
       const y = horizonY + progress * progress * (canvas.height - horizonY);
       ctx.beginPath();
       ctx.moveTo(0, y);
       ctx.lineTo(canvas.width, y);
       ctx.stroke();
     }
-    // Vertical lines (perspective)
-    for (let i = -10; i <= 10; i++) {
+    // Yellow vertical lines (perspective)
+    ctx.strokeStyle = "rgba(255, 235, 0, 0.35)";
+    for (let i = -12; i <= 12; i++) {
       ctx.beginPath();
       ctx.moveTo(canvas.width / 2 + i * 60, horizonY);
       ctx.lineTo(canvas.width / 2 + i * canvas.width, canvas.height);
       ctx.stroke();
     }
 
-    // Pixel stars
+    // Pixel stars (chunky 2x2)
     stars.forEach((s) => {
       s.y += s.speed;
       if (s.y > canvas.height) {
-        s.y = 0;
+        s.y = -10;
         s.x = Math.random() * canvas.width;
       }
       ctx.fillStyle = s.color;
